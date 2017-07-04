@@ -87,7 +87,7 @@
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
     var filtered = [];
-    _.each(collection, function(el, index) {
+    _.each(collection, function(el) {
       if (test(el)) {
         filtered.push(el);
       }
@@ -99,6 +99,12 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var rejected = _.filter(collection, function(el){
+      if(!test(el) !== true){
+        return true;
+      }
+    });
+    return rejected;
   };
 
   // Produce a duplicate-free version of the array.

@@ -100,7 +100,7 @@
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
     var rejected = _.filter(collection, function(el){
-      if(!test(el) !== true){
+      if(!test(el)){
         return true;
       }
     });

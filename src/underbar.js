@@ -229,27 +229,28 @@
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function(collection, iterator) {
-    var callback = iterator || _.identity;
-    var foundOne = false;
-    collection.forEach(function(el) {
-      if(foundOne === true){
-        return true;
-      }
-      if(iterator(el)){
-        return true;
-      }
-      return false;
-    })
-  };
-
   // _.some = function(collection, iterator) {
-  //   // TIP: There's a very clever way to re-use every() here.
   //   var callback = iterator || _.identity;
-  //   return !_.every(collection, function(el) {
-  //     return !callback(el); // I don't get why this works
-  //   });
+  //   var foundOne = false;
+  //   _.each(collection, iterator)
+  //   collection.forEach(function(el) {
+  //     if(foundOne === true){
+  //       return true;
+  //     }
+  //     if(iterator(el)){
+  //       return true;
+  //     }
+  //     return false;
+  //   })
   // };
+
+  _.some = function(collection, iterator) {
+    // TIP: There's a very clever way to re-use every() here.
+    var callback = iterator || _.identity;
+    return !_.every(collection, function(el) {
+      return !callback(el); // I don't get why this works
+    });
+  };
 
 
 
@@ -272,6 +273,13 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var objectsToExtend = Array.from(arguments).slice(1, arguments.length);
+    _.each(objectsToExtend, function(object){
+      for (var prop in object) {
+        obj[prop] = object[prop];
+      }
+    })
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already

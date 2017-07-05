@@ -274,17 +274,26 @@
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
     var objectsToExtend = Array.from(arguments).slice(1, arguments.length);
-    _.each(objectsToExtend, function(object){
+    _.each(objectsToExtend, function(object) {
       for (var prop in object) {
         obj[prop] = object[prop];
       }
-    })
+    });
     return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var propertyDoners = Array.from(arguments).slice(1, arguments.length);
+    _.each(propertyDoners, function(object) {
+      for (var prop in object) {
+        if(!obj.hasOwnProperty(prop)) {
+          obj[prop] = object[prop];
+        }
+      }
+    });
+    return obj;
   };
 
 

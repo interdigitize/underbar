@@ -150,7 +150,7 @@
     });
   };
 
-  // Reduces an array or object to a single value by repetitively calling
+  // Reduce reduces an array or object to a single value by repetitively calling
   // iterator(accumulator, item) for each item. accumulator should be
   // the return value of the previous iterator call.
   //
@@ -171,6 +171,26 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    //check if the collection is an array
+    if (Array.isArray(collection)) {
+      // make a copy of the collection that can mutate
+      var copyArr = collection.slice();
+      // check if the accumulator is an argument
+      if (arguments[2] === undefined) {
+        // set the accumulator equal to the first element
+        accumulator = copyArr[0];
+        //remove the first item from the collection copy
+        copyArr.shift(0);
+      }
+      //call iterator on each item in the collection copy
+      _.each(copyArr, function(el, index) {
+        // set accumulator equal to the result
+        accumulator = iterator(accumulator, el);
+      });
+    }
+    //return the accumulator
+    return accumulator;
+
   };
 
   // Determine if the array or object contains a given value (using `===`).

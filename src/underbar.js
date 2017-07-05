@@ -220,12 +220,8 @@
     // TIP: Try re-using reduce() here.
     var callback = iterator || _.identity;
     return _.reduce(collection, function(result, el) {
-      console.log('callback(el): ', callback(el));
       if(callback(el)){
-        if(result === false) {
-          return false;
-        }
-        return true;
+        return result;
       }
       return false;
     }, true)
@@ -234,8 +230,27 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+    var callback = iterator || _.identity;
+    var foundOne = false;
+    collection.forEach(function(el) {
+      if(foundOne === true){
+        return true;
+      }
+      if(iterator(el)){
+        return true;
+      }
+      return false;
+    })
   };
+
+  // _.some = function(collection, iterator) {
+  //   // TIP: There's a very clever way to re-use every() here.
+  //   var callback = iterator || _.identity;
+  //   return !_.every(collection, function(el) {
+  //     return !callback(el); // I don't get why this works
+  //   });
+  // };
+
 
 
   /**

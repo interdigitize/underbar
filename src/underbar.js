@@ -187,6 +187,15 @@
         // set accumulator equal to the result
         accumulator = iterator(accumulator, el);
       });
+    } else if (typeof collection === 'object') {
+
+      for (var prop in collection) {
+        if (arguments[2] === undefined) {
+          accumulator = collection[prop];
+        } else {
+          accumulator = iterator(accumulator, collection[prop])
+        }
+      }
     }
     //return the accumulator
     return accumulator;

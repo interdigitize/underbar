@@ -336,7 +336,20 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+
+
   _.memoize = function(func) {
+    //something to store results
+    // var results = {};
+    // //check to see if the function has been called by checking results
+    // if (results.hasOwnProperty(func)) {
+    //   //if it has, retrieve and return
+    //   return results[func];
+    // }
+    // // if not, run the function and store the result
+    // results[func] = func();
+    // // return the result
+    // return results[func];
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -346,6 +359,8 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.from(arguments).slice(2, arguments.length);
+    window.setTimeout(function(){func.apply(this, args)}, wait);
   };
 
 
@@ -360,6 +375,7 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
   };
 
 
